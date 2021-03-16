@@ -1,5 +1,5 @@
 {
-  "name": "component_users",
+  "name": "hello_element",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "element-ui": "^2.15.1",
     "vue": "^2.6.12"
   },
   "devDependencies": {
