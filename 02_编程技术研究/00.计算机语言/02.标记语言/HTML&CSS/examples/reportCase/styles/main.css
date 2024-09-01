@@ -1,0 +1,117 @@
+/* 设置全局样式 */
+body {
+    font-family: "Microsoft Yahei",  Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5vh;
+    margin: 0;
+    padding: 1.5vh 1.5vw;
+}
+
+/* 设置布局类元素的样式 */
+header, main, footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5vh 1.5vw;
+}
+section {
+    border-top: 1px solid #eee;
+    padding-top: 2.5vh;
+    margin-bottom: 3.5vh;
+}
+article {
+    padding: 0.5vh 1vw;
+    width: 60vw;
+}
+footer {
+    border-top: 1px solid #ccc;
+    text-align: center;
+    margin-top: 1.5vh;
+}
+
+/* 文本标题样式 */
+h1 {
+    color: #333;
+    font-size: 2rem;
+}
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-top: 1.5vh;
+}
+h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin: 2vh 0;
+}
+/* 文本段落样式 */
+p {
+    margin-bottom: 2vh;
+}
+
+/* 设置强调文本的样式 */
+strong {
+    color:deeppink;
+}
+em {
+    background-color: lemonchiffon
+}
+
+/* 设置引用文本的样式 */
+blockquote {
+    background-color: #f8f8f8;
+    width: 100%;
+    border-left: 4px solid #ccc;
+    padding: 1.5vh 0vw;
+    padding-left: 1.5vw;
+    margin: 1.5vh 0vw;
+}
+cite {
+    margin: 0;
+    margin-top: 1.5vh;
+    margin-left: 35vw;
+    font-style: italic;
+    color: #777;
+}
+
+/* 设置链接文本的样式 */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* 设置列表元素的样式 */
+ul, ol {
+    padding: 0;
+    margin: 2vh 1.5vw;
+}
+ul {
+    list-style: none;
+}
+li {
+    margin-bottom: 1.5vh;
+}
+
+/* 设置表格元素的样式 */
+table {
+    margin: 1.5vh 1.5vw;
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+
+/* 设置图片元素的样式 */
+img {
+    float: left;
+    width: 30vw;
+    margin: 1.5vh 1.5vw;
+    border: 1px solid #ccc;
+}
+
+/* 设置页脚区域内的图文样式 */

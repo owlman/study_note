@@ -1,0 +1,102 @@
+/* 匹配body标签，用于定义整个网页所在区域的样式 */
+body {
+    /* 设置网页使用的默认字体 */
+    font-family: "Microsoft Yahei", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    /* 设置网页使用的主背景色并将其保存为变量 */
+    --primary-bg-color: rgb(164, 205, 223);
+    background-color: var(--primary-bg-color);
+    /* 设置被匹配标签所在元素的内边距 */
+    padding: 1vh 0.5vw;
+}
+
+/* 匹配header标签，用于定义网页头部区域的样式 */
+header {
+    height: 5vh;
+    background-color: white;
+    padding: 1.5vh;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid;
+}
+
+/* 匹配nav标签，用于定义网页导航栏区域的样式 */
+nav {
+    height: 5vh;
+    background-color: white;
+    padding: 1.5vh;
+    border: 1px solid;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* 匹配main标签，用于定义网页主要内容区域的样式 */
+main {
+    height: 72vh;
+    background-color: white;
+    margin: 0.5vh 0;
+    padding: 1vh 0.5vw;
+    font-size: 1.5rem;
+    border: 1px solid;
+    text-align: center;
+}
+
+/* 匹配section标签，用于定义网页中各个分区域的样式 */
+section {
+    height: 60vh;
+    background-color: white;
+    margin: 0.5vh 0vw;
+    padding: 1vh 1vw;
+    font-size: 1.3rem;
+    border: 1px solid;
+    text-align: center;
+}
+
+/* 匹配aside标签，用于定义网页侧边栏区域的样式 */
+aside {
+    float: left;
+    height: 55vh;
+    width: 20vw;
+    background-color: var(--primary-bg-color);
+    margin: 1.5vh 1.5vw;
+    padding: 0.5vh 0.5vw;
+    border: 1px solid;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+/* 匹配article标签，用于网页中某一特定内容区域的样式 */
+article {
+    float: left;
+    height: 45vh;
+    width: 65vw;
+    background-color: var(--primary-bg-color);
+    margin: 2vh 1.5vw;
+    padding: 1.4vh 0.5vw;
+    border: 1px solid;
+    font-size: 1.3rem;
+    text-align: center;
+}
+/* 匹配article标签下的h1标签 */
+article h1 {
+    background-color: white;
+    margin: 1.5vh 0.5vw;
+    padding: 0.5vh 0.5vw;
+}
+/* 匹配article标签下的p标签 */
+article p {
+    height: 35vh;
+    background-color: white;
+    margin: 1.5vh 0.5vw;
+    padding: 0.5vh 0.5vw;
+}
+
+/* 匹配footer标签，用于定义网页底部区域的样式 */
+footer {
+    height: 3vh;
+    background-color: white;
+    padding: 1vh 0.5vw;
+    border: 1px solid;
+    font-size: 1.2rem;
+    text-align: center;
+}
