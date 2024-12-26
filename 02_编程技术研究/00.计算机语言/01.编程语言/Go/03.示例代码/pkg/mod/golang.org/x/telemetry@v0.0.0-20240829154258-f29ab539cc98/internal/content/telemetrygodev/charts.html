@@ -1,0 +1,37 @@
+<!--
+  Copyright 2023 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+{{template "base" .}}
+
+{{define "title"}}Go Telemetry / {{index .Charts.DateRange 1}}{{end}}
+
+{{define "content"}}
+<link rel="stylesheet" href="/static/charts.min.css">
+
+<main id="main">
+<section>
+<div class="Hero">
+<div class="Content">
+  <h1>{{.ChartTitle}}</h1>
+  <p>Generated from {{.Charts.NumReports}} reports.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="Content">
+  <div class="Charts">
+  {{template "chartbrowser" .}}
+  </div>
+</div>
+</section>
+
+<script>
+  window.Page = {{.}};
+</script>
+<script src="/static/charts.min.js"></script>
+
+{{end}}

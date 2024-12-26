@@ -1,0 +1,85 @@
+exec gofumpt -w foo.go
+cmp foo.go foo.go.golden
+
+exec gofumpt -d foo.go.golden
+! stdout .
+
+-- foo.go --
+package p
+
+func f() {
+	if true {
+		// lone comment
+	}
+	{
+
+	}
+
+	{
+
+		// lone comment
+
+	}
+
+	type S struct {
+
+
+		// lone comment
+
+
+	}
+
+	type I interface {
+
+
+		// lone comment
+
+
+	}
+
+
+}
+
+type SOut struct {
+
+	// lone comment
+
+}
+
+type IOut interface {
+
+
+	// lone comment
+
+
+}
+-- foo.go.golden --
+package p
+
+func f() {
+	if true {
+		// lone comment
+	}
+	{
+	}
+
+	{
+		// lone comment
+	}
+
+	type S struct {
+		// lone comment
+	}
+
+	type I interface {
+		// lone comment
+	}
+}
+
+type SOut struct {
+	// lone comment
+}
+
+type IOut interface {
+	// lone comment
+}

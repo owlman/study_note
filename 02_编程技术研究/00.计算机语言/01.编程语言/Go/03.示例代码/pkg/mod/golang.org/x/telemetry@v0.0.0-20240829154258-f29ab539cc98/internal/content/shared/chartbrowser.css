@@ -1,0 +1,59 @@
+/*!
+ * Copyright 2024 The Go Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+
+@import url("../shared/treenav.css");
+
+/* Fix tooltip background for dark theme */
+svg g[aria-label="tip"] g {
+  fill: var(--color-background);
+}
+
+.Chartbrowser-view {
+  display: flex;
+  flex-direction: row;
+}
+.Chartbrowser-index {
+  flex: 1 1;
+  padding: 0 1.5rem 0 0;
+}
+.Chartbrowser-heading {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+}
+.Chartbrowser-index-sticky {
+  position: sticky;
+  top: 1rem;
+  width: 10rem;
+}
+.Chartbrowser-index-sticky > ul {
+  position: sticky;
+  top: 1rem;
+  margin-top: 0;
+}
+.Chartbrowser-link {
+  color: var(--color-text-subtle);
+  font-size: .875rem;
+  line-height: 1.5rem;
+}
+.Chartbrowser-program {
+  font-weight: normal;
+  margin: 0 0 1rem 0;
+}
+.Chartbrowser-program:not(:first-of-type) {
+  margin-top: 2rem;
+}
+.Chartbrowser-chart {
+  background-color: var(--color-background);
+  border: 1px solid transparent;
+  margin-bottom: 1rem;
+  padding: 0.875rem;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+.Chartbrowser-chart-name {
+  text-align: center;
+  margin: 0;
+}

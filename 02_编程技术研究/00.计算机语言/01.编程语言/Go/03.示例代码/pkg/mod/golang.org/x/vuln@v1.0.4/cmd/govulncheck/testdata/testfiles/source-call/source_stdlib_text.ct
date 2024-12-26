@@ -1,0 +1,47 @@
+#####
+# Test finding stdlib vulnerability in source mode
+$ govulncheck -C ${moddir}/stdlib . --> FAIL 3
+Scanning your code and P packages across M dependent modules for known vulnerabilities...
+
+=== Symbol Results ===
+
+Vulnerability #1: GO-2022-0969
+    HTTP/2 server connections can hang forever waiting for a clean shutdown that
+    was preempted by a fatal error. This condition can be exploited by a
+    malicious client to cause a denial of service.
+  More info: https://pkg.go.dev/vuln/GO-2022-0969
+  Standard library
+    Found in: net/http@go1.18
+    Fixed in: net/http@go1.18.6
+    Example traces found:
+      #1: .../stdlib.go:<l>:<c>: stdlib.main calls http.ListenAndServe
+
+Your code is affected by 1 vulnerability from the Go standard library.
+This scan found no other vulnerabilities in packages you import or modules you
+require.
+Use '-show verbose' for more details.
+
+#####
+# Test finding stdlib vulnerability in source mode with expanded traces
+$ govulncheck -C ${moddir}/stdlib -show=traces . --> FAIL 3
+Scanning your code and P packages across M dependent modules for known vulnerabilities...
+
+=== Symbol Results ===
+
+Vulnerability #1: GO-2022-0969
+    HTTP/2 server connections can hang forever waiting for a clean shutdown that
+    was preempted by a fatal error. This condition can be exploited by a
+    malicious client to cause a denial of service.
+  More info: https://pkg.go.dev/vuln/GO-2022-0969
+  Standard library
+    Found in: net/http@go1.18
+    Fixed in: net/http@go1.18.6
+    Example traces found:
+      #1: for function net/http.ListenAndServe
+        .../stdlib.go:<l>:<c>: golang.org/stdlib.main
+        .../server.go:<l>:<c>: net/http.ListenAndServe
+
+Your code is affected by 1 vulnerability from the Go standard library.
+This scan found no other vulnerabilities in packages you import or modules you
+require.
+Use '-show verbose' for more details.

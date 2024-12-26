@@ -1,0 +1,35 @@
+<!--
+  Copyright 2024 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+{{template "base" .}}
+
+{{define "title"}}Go Telemetry / Daily Charts{{end}}
+
+{{define "content"}}
+
+<main id="main">
+<section>
+<div class="Hero">
+<div class="Content">
+  <h1>Daily Charts</h1>
+  <p>View charts for telemetry data.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="Content">
+  <ul style="column-count: auto; column-width: 10rem">
+  {{range .}}
+    <li><a href="/charts/{{.}}">{{.}}</a></li>
+  {{end}}
+  </ul>
+</div>
+</section>
+
+</main>
+
+{{end}}

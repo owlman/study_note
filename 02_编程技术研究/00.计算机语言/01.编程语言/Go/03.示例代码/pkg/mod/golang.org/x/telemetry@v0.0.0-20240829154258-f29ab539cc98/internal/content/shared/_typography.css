@@ -1,0 +1,69 @@
+/*!
+ * Copyright 2021 The Go Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 1rem;
+  line-height: normal;
+}
+
+p {
+  line-height: 1.4375;
+  max-width: 75ch;
+}
+
+hr {
+  border: none;
+  border-bottom: var(--border);
+  margin: 0;
+  width: 100%;
+}
+
+code,
+pre,
+textarea.code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5em;
+}
+
+pre,
+textarea.code {
+  background-color: var(--color-background-accented);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  overflow-x: auto;
+  padding: 0.625rem;
+  tab-size: 4;
+  white-space: pre;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a,
+a:link,
+a:visited {
+  color: var(--color-brand-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-brand-primary);
+  text-decoration: underline;
+}
+
+a:hover > * {
+  text-decoration: underline;
+}

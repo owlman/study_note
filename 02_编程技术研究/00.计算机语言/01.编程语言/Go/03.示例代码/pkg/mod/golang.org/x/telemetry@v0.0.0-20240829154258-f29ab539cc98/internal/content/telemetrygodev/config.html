@@ -1,0 +1,40 @@
+<!--
+  Copyright 2023 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+{{template "base" .}}
+
+{{define "title"}}Go Telemetry Config{{end}}
+
+{{define "content"}}
+<main id="main">
+<div class="Content">
+  <section class="Chart Config">
+    <h2 id="config">Chart Config</h2>
+    <p>
+      The chart config contains the list of approved charts to display on
+			telemetry.go.dev. The chart config format is documented by the
+			<a href="https://pkg.go.dev/golang.org/x/telemetry/internal/chartconfig">
+				<code>chartconfig</code>
+			</a> package documentation.
+    </p>
+    <pre style="max-height: 100rem">{{.ChartConfig}}</pre>
+  </section>
+
+  <section class="Upload Config">
+    <h2 id="config">Upload Config</h2>
+    <p>
+      The upload config contains the list of active counters for each program
+      and allowed report metadata. This is generated from the chart config
+      above.
+    </p>
+    <label>
+      Version: {{.Version}}
+    </label>
+    <pre style="max-height: 100rem">{{.UploadConfig}}</pre>
+  </section>
+</div>
+</main>
+{{end}}

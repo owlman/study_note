@@ -1,0 +1,60 @@
+# Initially, the Go language version is too low.
+exec gofumpt -l .
+! stdout .
+
+# We can give an explicitly newer version.
+exec gofumpt -lang=1.13 -l .
+stdout -count=1 'foo\.go'
+stdout -count=1 'nested[/\\]nested\.go'
+
+# If we bump the version in go.mod, it should be picked up.
+exec go mod edit -go=1.13
+exec gofumpt -l .
+stdout -count=1 'foo\.go'
+! stdout 'nested'
+
+# Ensure we produce the output we expect, and that it's stable.
+exec gofumpt foo.go
+cmp stdout foo.go.golden
+exec gofumpt -d foo.go.golden
+! stdout .
+
+# We can give an explicitly older version, too
+exec gofumpt -lang=1.0 -l .
+! stdout .
+
+-- go.mod --
+module test
+
+go 1.12
+-- foo.go --
+package p
+
+const (
+	i = 0
+	j = 022
+	k = 0o_7_5_5
+	l = 1022
+)
+-- foo.go.golden --
+package p
+
+const (
+	i = 0
+	j = 0o22
+	k = 0o_7_5_5
+	l = 1022
+)
+-- nested/go.mod --
+module nested
+
+go 1.11
+-- nested/nested.go --
+package p
+
+const (
+	i = 0
+	j = 022
+	k = 0o_7_5_5
+	l = 1022
+)

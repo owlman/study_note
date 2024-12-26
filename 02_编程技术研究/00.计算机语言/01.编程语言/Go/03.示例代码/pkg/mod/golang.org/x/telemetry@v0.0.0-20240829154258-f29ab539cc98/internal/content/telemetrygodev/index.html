@@ -1,0 +1,61 @@
+<!--
+  Copyright 2023 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+{{template "base" .}}
+
+{{define "title"}}Go Telemetry{{end}}
+
+{{define "content"}}
+<link rel="stylesheet" href="/static/index.min.css">
+
+<main id="main">
+<section>
+  <div class="Hero">
+    <div class="Content">
+      <h1>Go Telemetry &#128202;</h1>
+        <p>
+        <em>Go Telemetry</em> is a way for Go toolchain programs to collect
+        data about their performance and usage. Uploaded data is used to help
+        improve the Go toolchain and related tools. Go Telemetry is not built
+        into users' binaries. Learn more about Go telemetry at
+        <a href="https://go.dev/doc/telemetry">go.dev/doc/telemetry</a>.
+        </p>
+
+        <p>
+        Users who have opted in will upload an approved subset of telemetry
+        data approximately once a week. This subset is determined by the current
+        <a href="/config">upload configuration</a>.
+        </p>
+
+        <p>
+        For privacy information about this service, see
+        <a href="/privacy">telemetry.go.dev/privacy</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="Charts">
+<div class="Content">
+  <div class="Charts-heading">
+    <h2>{{.ChartTitle}}</h2>
+    <ul>
+      <li><a href="/charts/">All charts</a></li>
+      <li><a href="/data/">All raw data</a></li>
+    </ul>
+  </div>
+  {{template "chartbrowser" .}}
+</div>
+</section>
+
+</main>
+
+<script>
+  window.Page = {{.}};
+</script>
+<script src="/static/charts.min.js"></script>
+
+{{end}}

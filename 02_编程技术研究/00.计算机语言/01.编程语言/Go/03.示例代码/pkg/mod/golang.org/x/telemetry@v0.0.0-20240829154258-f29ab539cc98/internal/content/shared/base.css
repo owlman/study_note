@@ -1,0 +1,59 @@
+/*!
+ * Copyright 2023 The Go Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+
+@import url("./_normalize.css");
+@import url("./_color.css");
+@import url("./_typography.css");
+@import url("./_tooltip.css");
+
+:root {
+  --border: 0.0625rem solid var(--color-border);
+  --border-radius: 0.25rem;
+}
+
+.Breadcrumb {
+  background-color: var(--color-background-accented);
+}
+.Breadcrumb ol {
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: inline-flex;
+}
+.Breadcrumb li {
+  display: flex;
+  font-size: 0.875rem;
+}
+.Breadcrumb li:not(:last-child):after {
+  background: url("./arrow-forward.svg") no-repeat;
+  content: "";
+  display: block;
+  height: 1rem;
+  margin: 0 0.8125rem;
+  width: 1rem;
+  text-align: center;
+}
+
+.Hero {
+  background-color: var(--color-background-accented);
+  padding: 1rem 0;
+}
+.Hero h1 {
+  font-size: 2.25rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+.Container {
+  margin: 0 0 5rem;
+}
+
+.Content {
+  margin: 0 auto;
+  max-width: 64rem;
+  padding: 0 1rem;
+}

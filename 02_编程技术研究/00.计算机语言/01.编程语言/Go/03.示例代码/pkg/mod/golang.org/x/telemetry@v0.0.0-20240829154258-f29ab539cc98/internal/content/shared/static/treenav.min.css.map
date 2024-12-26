@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../treenav.css"],
+  "sourcesContent": ["/*!\n * Copyright 2024 The Go Authors. All rights reserved.\n * Use of this source code is governed by a BSD-style\n * license that can be found in the LICENSE file.\n */\n\n.js-Tree ul {\n  list-style: none;\n  padding-left: 0;\n}\n\n.js-Tree-item ul {\n  display: none;\n}\n\n.js-Tree-item {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  padding: 0.125rem 0 0.125rem 0;\n}\n\n.js-Tree-item[aria-expanded='true'] ul {\n  display: block;\n}\n\n.js-Tree-item .js-Tree-item {\n  position: relative;\n  padding-left: 1.25rem;\n}\n\n.js-Tree-item .js-Tree-item[aria-selected='true']:before {\n  background-color: var(--color-brand-primary);\n  border-radius: 50%;\n  content: \"\";\n  display: block;\n  height: .3125rem;\n  left: .4688rem;\n  position: absolute;\n  top: .75rem;\n  width: .3125rem;\n}\n\n.js-Tree-item>a {\n  color: var(--color-text-subtle);\n  font-size: .875rem;\n}\n\n.js-Tree-item[aria-selected='true']>a {\n  color: var(--color-text);\n}\n\n"],
+  "mappings": ";AAMA,YACE,gBACA,eAGF,iBACE,aAGF,cACE,gBACA,uBAjBF,kBAqBA,qCACE,cAGF,4BACE,kBACA,qBAGF,uDACE,4CA/BF,kBAiCE,WACA,cACA,gBACA,cACA,kBACA,WACA,eAGF,gBACE,+BACA,kBAGF,oCACE",
+  "names": []
+}

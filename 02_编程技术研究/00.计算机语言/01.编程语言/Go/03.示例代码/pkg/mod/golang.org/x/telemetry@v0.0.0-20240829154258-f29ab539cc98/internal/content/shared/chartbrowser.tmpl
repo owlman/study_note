@@ -1,0 +1,54 @@
+<!--
+  Copyright 2024 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+<!--
+  A chart browser is a reusable component for displaying a collection of
+  charts.
+-->
+
+{{define "chartbrowser"}}
+  <div class="Chartbrowser-view js-Tree">
+    <div class="Chartbrowser-index">
+      <nav class="Chartbrowser-index-sticky">
+        <h3 class="Chartbrowser-heading">Charts</h2>
+        <ul>
+        {{range .Charts.Programs}}
+          {{if .Charts}}
+          <li class="js-Tree-item" data-heading-id="{{.ID}}">
+            <a class="Chartbrowser-link" href="#{{.ID}}">{{programName .Name}}</a>
+            <ul>
+              {{range .Charts}}
+              {{with .}}
+              <li class="js-Tree-item" data-heading-id="{{.ID}}">
+                <a class="Chartbrowser-link" href="#{{.ID}}">{{chartName .Name}}</a>
+              </li>
+              {{end}}
+              {{end}}
+            </ul>
+          </li>
+          {{end}}
+        {{end}}
+        </ul>
+      </nav>
+    </div>
+    <div class="Chartbrowser-content">
+    {{range .Charts.Programs}}
+      {{if .Charts}}
+      {{$progName := programName .Name}}
+      <h3 id="{{.ID}}" class="Chartbrowser-program js-Tree-heading">{{$progName}}</h3>
+      {{range .Charts}}
+      {{with .}}
+      <div class="Chartbrowser-chart">
+        <h4 id="{{.ID}}" class="Chartbrowser-chart-name js-Tree-heading">{{$progName}} > {{chartName .Name}}</h4>
+        <div class="Chart-chart" data-chart-id="{{.ID}}"></div>
+      </div>
+      {{end}}
+      {{end}}
+      {{end}}
+    {{end}}
+    </div>
+  </div>
+{{end}}

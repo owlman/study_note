@@ -1,0 +1,33 @@
+# Whether we run gofumpt from inside or outside a module,
+# we should always use the information from its go.mod.
+# We also test that we don't get confused by the presence of go.work.
+
+exec gofumpt a/go112.go
+cmp stdout a/go113.go
+
+cd a
+exec gofumpt go112.go
+cmp stdout go113.go
+
+-- go.work --
+go 1.18
+use ./a
+use ./b
+-- a/go.mod --
+module a
+go 1.18
+-- a/a.go --
+package a
+-- a/go112.go --
+package main
+
+const x = 0777
+-- a/go113.go --
+package main
+
+const x = 0o777
+-- b/go.mod --
+module b
+go 1.18
+-- b/b.go --
+package b

@@ -1,0 +1,148 @@
+# Note: these are approved chart configs, used to generate the upload config.
+# For the chart config file format, see chartconfig.go.
+
+title: Editor Distribution
+counter: gopls/client:{vscode,vscodium,vscode-insiders,code-server,eglot,govim,neovim,coc.nvim,sublimetext,other}
+description: measure editor distribution for gopls users.
+type: partition
+issue: https://go.dev/issue/61038
+issue: https://go.dev/issue/62214 # add vscode-insiders
+program: golang.org/x/tools/gopls
+version: v0.13.0 # temporarily back-version to demonstrate config generation.
+---
+title: Go versions in use for gopls views
+counter: gopls/goversion:{1.16,1.17,1.18,1.19,1.20,1.21,1.22,1.23,1.24,1.25,1.26,1.27,1.28,1.29,1.30}
+description: measure go version usage distribution.
+type: partition
+issue: https://go.dev/issue/62248
+program: golang.org/x/tools/gopls
+version: v0.13.0
+---
+title: Number of bug report calls
+counter: gopls/bug
+description: count the bugs reported through gopls/internal/bug APIs.
+type: stack
+issue: https://go.dev/issue/62249
+program: golang.org/x/tools/gopls
+depth: 16
+version: v0.13.0
+---
+counter: crash/crash
+title: Unexpected Go crashes
+description: stacks of goroutines running when the Go program crashed
+type: stack
+issue: https://go.dev/issue/65696
+program: golang.org/x/tools/gopls
+depth: 16
+version: v0.15.0
+---
+counter: crash/malformed
+title: Failure to parse runtime crash output
+description: count of runtime crash messages that failed to parse
+type: partition
+issue: https://go.dev/issue/65696
+program: golang.org/x/tools/gopls
+version: v0.15.0
+---
+counter: crash/no-running-goroutine
+title: Failure to identify any running goroutine in the crash output
+description: count of runtime crash messages that don't have a running goroutine (e.g. deadlock)
+type: partition
+issue: https://go.dev/issue/65696
+program: golang.org/x/tools/gopls
+version: v0.15.0
+---
+counter: go/invocations
+title: cmd/go invocations
+description: Number of invocations of the go command
+type: partition
+issue: https://go.dev/issue/67244
+program: cmd/go
+version: go1.23rc1
+---
+counter: go/build/flag:{
+  buildmode
+}
+title: cmd/go flags
+description: Flag names of flags provided to the go command
+type: partition
+issue: https://go.dev/issue/67244
+program: cmd/go
+version: go1.23rc1
+---
+counter: go/build/flag/buildmode:{
+  archive,
+  c-archive,
+  c-shared,
+  default,
+  exe,
+  pie,
+  shared,
+  plugin
+}
+title: cmd/go buildmode values
+description: Buildmode values for the go command
+type: partition
+issue: https://go.dev/issue/67244
+program: cmd/go
+version: go1.23rc1
+---
+counter: compile/invocations
+title: cmd/compile invocations
+description: Number of invocations of the go compiler
+type: partition
+issue: https://go.dev/issue/67244
+program: cmd/compile
+version: go1.23rc1
+---
+title: Compiler bug report calls
+counter: compile/bug
+description: count stacks for cases where cmd/compile has a fatal error
+type: stack
+issue: https://go.dev/issue/67244
+program: cmd/compile
+depth: 16
+version: go1.23rc1
+---
+counter: govulncheck/scan:{symbol,package,module}
+title: Scan Level Distribution
+description: measure govulncheck scan level distribution
+type: partition
+issue: https://go.dev/issue/67678
+program: golang.org/x/vuln/cmd/govulncheck
+---
+counter: govulncheck/mode:{source,binary,extract,query,convert}
+title: Scan Mode Distribution
+description: measure govulncheck scan mode distribution
+type: partition
+issue: https://go.dev/issue/67678
+program: golang.org/x/vuln/cmd/govulncheck
+---
+counter: govulncheck/format:{text,json,sarif,openvex}
+title: Output Format Distribution
+description: measure govulncheck output format distribution
+type: partition
+issue: https://go.dev/issue/67678
+program: golang.org/x/vuln/cmd/govulncheck
+---
+counter: govulncheck/show:{none,traces,color,verbose,version}
+title: Show Options Distribution
+description: measure govulncheck show flag distribution
+type: partition
+issue: https://go.dev/issue/67678
+program: golang.org/x/vuln/cmd/govulncheck
+---
+counter: govulncheck/assumptions:{multi-patterns,no-binary-platform,no-relative-path,no-go-root,local-replace,unknown-pkg-mod-path}
+title: Code Invariants Distribution
+description: measure distribution of failed govulncheck internal assumptions
+type: partition
+issue: https://go.dev/issue/67678
+program: golang.org/x/vuln/cmd/govulncheck
+---
+counter: gopls/gotoolchain:{auto,path,local,other}
+title: GOTOOLCHAIN types used with gopls
+description: measure the types of GOTOOLCHAIN values used with gopls
+type: partition
+issue: https://go.dev/issue/68771
+program: golang.org/x/tools/gopls
+version: v0.16.0

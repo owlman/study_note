@@ -1,0 +1,36 @@
+<!--
+  Copyright 2023 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{block "title" .}}{{.Title}}{{end}}</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/base.min.css">
+</head>
+<body>
+	{{with .Breadcrumbs}}
+  <nav class="Breadcrumb">
+    <div class="Content">
+      <ol>
+        {{range .}}
+        <li>{{if .Link}}<a href="{{.Link}}">{{.Label}}</a>{{else}}{{.Label}}{{end}}</li>
+        {{end}}
+      </ol>
+    </div>
+  </nav>
+  {{end}}
+  <div class="Container">
+    {{block "content" .}}{{.Content}}{{end}}
+  </div>
+</body>
+</html>
+{{end}}

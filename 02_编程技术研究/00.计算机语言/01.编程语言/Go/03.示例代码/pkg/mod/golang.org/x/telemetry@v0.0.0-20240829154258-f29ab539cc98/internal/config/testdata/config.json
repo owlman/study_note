@@ -1,0 +1,43 @@
+{
+  "Version": "v0.0.1-test",
+  "GOOS": [
+    "linux",
+    "darwin"
+  ],
+  "GOARCH": [
+    "amd64",
+    "arm64"
+  ],
+  "GoVersion": [
+    "go1.20",
+    "go1.20.1"
+  ],
+  "Programs": [
+    {
+      "Name": "golang.org/x/tools/gopls",
+      "Versions": [
+        "v0.10.1",
+        "v0.11.0"
+      ],
+      "Counters": [
+        {
+          "Name": "editor:{emacs,vim,vscode,other}",
+          "Rate": 0.01
+        }
+      ]
+    },
+    {
+      "Name": "cmd/go",
+      "Versions": [
+        "v0.10.1",
+        "v0.11.0"
+      ],
+      "Counters": [
+        {
+          "Name": "go/buildcache/miss:{0,0.1,0.2,0.5,1,10,100,2,20,5,50}",
+          "Rate": 0.01
+        }
+      ]
+    }
+  ]
+}

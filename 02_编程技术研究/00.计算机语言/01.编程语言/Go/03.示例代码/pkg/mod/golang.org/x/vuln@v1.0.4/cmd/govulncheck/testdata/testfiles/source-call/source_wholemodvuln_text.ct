@@ -1,0 +1,23 @@
+#####
+# Test of govulncheck call analysis for vulns with no package info available.
+# All symbols of the module are vulnerable.
+$ govulncheck -C ${moddir}/wholemodvuln ./... --> FAIL 3
+Scanning your code and P packages across M dependent modules for known vulnerabilities...
+
+=== Symbol Results ===
+
+Vulnerability #1: GO-2022-0956
+    Excessive resource consumption in gopkg.in/yaml.v2
+  More info: https://pkg.go.dev/vuln/GO-2022-0956
+  Module: gopkg.in/yaml.v2
+    Found in: gopkg.in/yaml.v2@v2.2.3
+    Fixed in: gopkg.in/yaml.v2@v2.2.4
+    Example traces found:
+      #1: .../whole_mod_vuln.go:<l>:<c>: wholemodvuln.main calls yaml.Marshal
+      #2: .../whole_mod_vuln.go:<l>:<c>: wholemodvuln.init calls yaml.init
+
+Your code is affected by 1 vulnerability from 1 module.
+This scan also found 0 vulnerabilities in packages you import and 1
+vulnerability in modules you require, but your code doesn't appear to call these
+vulnerabilities.
+Use '-show verbose' for more details.

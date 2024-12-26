@@ -1,0 +1,47 @@
+exec gofumpt -w foo.go
+cmp foo.go foo.go.golden
+
+exec gofumpt -d foo.go.golden
+! stdout .
+
+-- foo.go --
+package p
+
+import "C"
+import "os"
+
+import `C`
+import "os"
+
+import "C"
+import (
+	"io"
+	"utf8"
+)
+
+import `C`
+import (
+	"io"
+	"utf8"
+)
+
+-- foo.go.golden --
+package p
+
+import "C"
+import "os"
+
+import "C"
+import "os"
+
+import "C"
+import (
+	"io"
+	"utf8"
+)
+
+import "C"
+import (
+	"io"
+	"utf8"
+)

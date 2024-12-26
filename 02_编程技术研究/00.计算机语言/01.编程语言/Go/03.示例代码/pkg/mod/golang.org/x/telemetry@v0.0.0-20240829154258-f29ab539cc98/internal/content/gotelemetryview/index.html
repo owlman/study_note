@@ -1,0 +1,270 @@
+<!--
+  Copyright 2023 The Go Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style
+  license that can be found in the LICENSE file.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Telemetry</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/index.min.css">
+  <script src="/static/storage.min.js"></script>
+</head>
+
+<body>
+  <main id="main">
+    <!-- TODO(rfindley): refactor to share breadcrumbs with telemetry.go.dev -->
+    <nav class="ViewBreadcrumb js-breadcrumb">
+      <ol></ol>
+    </nav>
+
+    <div class="Container">
+      <div class="Content">
+        <h1 class="Title">Go Telemetry</h1>
+        <p>
+          This page allows you to inspect counters collected by Go Toolchain
+          programs on your machine. It includes counters for submitted and
+          pending reports. For more information about Go Toolchain telemetry
+          <a target="_blank" rel="noreferrer" href="https://telemetry.go.dev/privacy">
+            read the docs here.
+          </a>
+        </p>
+
+        <section class="Index">
+          <h2 id="index">Index</h2>
+          <ul>
+            <li>
+              <a href="#charts">Charts</a>
+              <ul>
+                {{range .Charts.Programs}}
+                <li>
+                  <a href="#{{.ID}}">{{.Name}}</a>
+                  <ul>
+                    {{range .Counters}}
+                    <li>
+                      <a href="#{{.ID}}">{{.Name}}</a>
+                    </li>
+                    {{end}}
+                  </ul>
+                </li>
+                {{end}}
+              </ul>
+            </li>
+            <li>
+              <a href="#config">Config</a>
+            </li>
+            <li>
+              <a href="#files">Counters</a>
+              <ul>
+                {{range .Files}}
+                <li>
+                  <a href="#{{.ID}}"> {{.ID}} </a>
+                </li>
+                {{end}}
+              </ul>
+            </li>
+            <li>
+              <a href="#reports">Reports</a>
+              <ul style="column-count: auto; column-width: 10rem">
+                {{range .Reports}}
+                <li>
+                  <a href="#{{.ID}}">{{.Week}}</a>
+                </li>
+                {{end}}
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section class="Charts">
+          <h2 id="charts">Charts</h2>
+          <p>
+            Charts are visualizations of the counters from your archived
+            reports. Counters for different program builds of the same program
+            are summed together. Use the index to navigate to charts by
+            counter name.
+          </p>
+          {{range .Charts.Programs}}
+          <div class="Chart">
+            {{$pname := .Name}}
+            <h3 id="{{.ID}}" data-label="{{$pname}}">
+              {{$pname}}
+              {{if not .Active}}
+                {{template "info-icon" "This program is not present in the telemetry config."}}
+               {{end}}
+            </h3>
+            {{range .Counters}}
+            <div>
+              {{$cname := .Name}}
+              <h4 id="{{.ID}}" data-label="{{$cname}}">
+                {{$cname}}
+                  {{if not .Active}}
+                    {{template "info-icon" "This counter is not present in the telemetry config."}}
+                  {{end}}
+              </h4>
+              <div data-chart-id="{{.ID}}"></div>
+            </div>
+            {{end}}
+          </div>
+          {{end}}
+        </section>
+
+        <section class="Config">
+          <h2 id="config">Config</h2>
+          <p>
+            The config contains the list of active counters for each program
+            and allowed report metadata.
+          </p>
+          <label>
+            Version
+            <select class="js-selectConfig" name="config">
+              {{range .ConfigVersions}}
+              <option value="{{.}}" {{if eq . $.RequestedConfig}}selected{{end}}>
+                {{.}}
+              </option>
+              {{end}}
+            </select>
+          </label>
+          <pre style="max-height: 20rem">{{.PrettyConfig}}</pre>
+        </section>
+
+        <section class="Files">
+          <h2 id="files">Counters</h2>
+          <p>
+            Counters display data from active counter files that has not yet
+            been uploaded with a report or archived. If a report includes data
+            that is not registered in the telemetry config, a summary of those
+            fields and how they'll be handled appears next to the counter
+            values.
+          </p>
+          {{range .Files}}
+          <div class="File">
+            <h3 id="{{.ID}}">{{.ID}}</h3>
+            <div class="Counters">
+              <div class="Meta">
+                <span>Program:</span>
+                <span class="{{if not .ActiveMeta.Program}}unknown{{end}}">
+                  {{.Meta.Program}}
+                </span>
+                <span>Version:</span>
+                <span class="{{if not .ActiveMeta.Version}}unknown{{end}}">
+                  {{.Meta.Version}}
+                </span>
+                <span>GOOS:</span>
+                <span class="{{if not .ActiveMeta.GOOS}}unknown{{end}}">
+                  {{.Meta.GOOS}}
+                </span>
+                <span>GOARCH:</span>
+                <span class="{{if not .ActiveMeta.GOARCH}}unknown{{end}}">
+                  {{.Meta.GOARCH}}
+                </span>
+                <span>GoVersion:</span>
+                <span class="{{if not .ActiveMeta.GoVersion}}unknown{{end}}">
+                  {{.Meta.GoVersion}}
+                </span>
+                <span>TimeBegin:</span>
+                <span>{{.Meta.TimeBegin}}</span>
+                <span>TimeEnd:</span>
+                <span>{{.Meta.TimeEnd}}</span>
+              </div>
+              {{$file := .}}
+              {{with .Counts}}
+              <div class="Count">
+                {{range .}}
+                <div class="Count-entry {{if not .Active }}unknown{{end}}">
+                  <span>{{.Name}}</span><span>{{.Value}}</span>
+                </div>
+                {{end}}
+              </div>
+              {{end}}
+              {{with .Stacks}}
+              <div class="Stack">
+                Call stacks:
+                {{range .}}
+                <details>
+                  <summary>
+                    <div class="Count-entry {{if not .Active }}unknown{{end}}">
+                      <span>{{.Name}}</span><span>{{.Value}}</span>
+                    </div>
+                  </summary>
+                  <pre>{{.Trace}}</pre>
+                </details>
+                {{end}}
+              </div>
+              {{end}}
+              {{with .Summary}}
+              <div class="Summary">{{.}}</div>
+              {{end}}
+            </div>
+          </div>
+          {{end}}
+        </section>
+
+        <section class="Reports">
+          <h2 id="reports">Reports</h2>
+          <p>
+            Reports represent local copies of the data uploaded by the Go
+            command to telemetry.go.dev. Use the index to navigate to a
+            report by upload date or program build.
+          </p>
+          {{range .Reports}}
+          <div class="Report">
+            {{$date := .Week}}
+            <h3 id="reports:{{$date}}">{{$date}}</h3>
+            {{range .Programs}}
+            <div id="{{.ID}}" class="Counters">
+              <div class="Meta">
+                <span>Program:</span>
+                <span class="{{if not ($.Config.HasProgram .Program)}}unknown{{end}}">
+                  {{.Program}}
+                </span>
+                <span>Version:</span>
+                <span class="{{if not ($.Config.HasVersion .Program .Version)}}unknown{{end}}">
+                  {{.Version}}
+                </span>
+                <span>GOOS:</span>
+                <span class="{{if not ($.Config.HasGOOS .GOOS)}}unknown{{end}}">
+                  {{.GOOS}}
+                </span>
+                <span>GOARCH:</span>
+                <span class="{{if not ($.Config.HasGOARCH .GOARCH)}}unknown{{end}}">
+                  {{.GOARCH}}
+                </span>
+                <span>GoVersion:</span>
+                <span class="{{if not ($.Config.HasGoVersion .GoVersion)}}unknown{{end}}">
+                  {{.GoVersion}}
+                </span>
+              </div>
+              {{$report := .}}
+              {{with .Counters}}
+              <div class="Count">
+                {{range $name, $value := .}}
+                <div class="Count-entry {{if not ($.Config.HasCounter $report.Program $name) }}unknown{{end}}">
+                  <span>{{$name}}</span><span>{{$value}}</span>
+                </div>
+                {{end}}
+              </div>
+              {{end}}
+              {{with .Summary}}
+              <div class="Summary">{{.}}</div>
+              {{end}}
+            </div>
+            {{end}}
+          </div>
+          {{end}}
+        </section>
+      </div>
+    </div>
+  </main>
+  <script>
+    window.Page = {{.}};
+  </script>
+  <script src="/static/index.min.js"></script>
+</body>
+
+</html>

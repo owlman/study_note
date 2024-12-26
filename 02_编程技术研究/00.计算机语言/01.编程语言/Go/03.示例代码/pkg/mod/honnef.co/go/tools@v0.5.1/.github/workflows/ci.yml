@@ -1,0 +1,57 @@
+name: "CI"
+on: ["push", "pull_request"]
+
+jobs:
+  ci:
+    name: "Run CI"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["windows-latest", "ubuntu-latest", "macOS-latest"]
+        go: ["1.22.x"]
+        godebug: ["gotypesalias=0", "gotypesalias=1"]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - uses: WillAbides/setup-go-faster@v1.14.0
+      with:
+        go-version: ${{ matrix.go }}
+    - run: "go test ./..."
+      env:
+        GODEBUG: ${{ matrix.godebug }}
+    - run: "go vet ./..."
+    - uses: dominikh/staticcheck-action@v1
+      with:
+        version: "2023.1.7"
+        min-go-version: "module"
+        install-go: false
+        cache-key: ${{ matrix.go }}
+        output-format: binary
+        output-file: "./staticcheck.bin"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: "staticcheck-${{ github.sha }}-${{ matrix.go }}-${{ matrix.os }}.bin"
+        path: "./staticcheck.bin"
+        retention-days: 1
+        if-no-files-found: warn
+  output:
+    name: "Output Staticcheck findings"
+    needs: ci
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: WillAbides/setup-go-faster@v1.14.0
+      with:
+        go-version: "stable"
+    # this downloads all artifacts of the current workflow into the current working directory, creating one directory per artifact
+    - uses: actions/download-artifact@v3
+    - id: glob
+      run: |
+        # We replace newlines with %0A, which GitHub apparently magically turns back into newlines
+        out=$(ls -1 ./staticcheck-*.bin/*.bin)
+        echo "::set-output name=files::${out//$'\n'/%0A}"
+    - uses: dominikh/staticcheck-action@v1
+      with:
+        install-go: false
+        merge-files: ${{ steps.glob.outputs.files }}

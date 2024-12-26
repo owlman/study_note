@@ -1,0 +1,14 @@
+#####
+# Test souce mode with no callstacks
+$ govulncheck -C ${moddir}/informational -show=traces .
+Scanning your code and P packages across M dependent modules for known vulnerabilities...
+
+=== Symbol Results ===
+
+No vulnerabilities found.
+
+Your code is affected by 0 vulnerabilities.
+This scan also found 1 vulnerability in packages you import and 1 vulnerability
+in modules you require, but your code doesn't appear to call these
+vulnerabilities.
+Use '-show verbose' for more details.

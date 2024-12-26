@@ -1,0 +1,98 @@
+exec gofumpt foo.go
+cmp stdout foo.go.golden
+
+-- go.mod --
+module test
+
+go 1.18
+-- foo.go --
+package p
+
+func Foo[A, B any](x A, y B) {}
+
+type Vector[T any] []T
+
+var v Vector[int  ]
+
+type PredeclaredSignedInteger interface {
+	int | int8 | int16 | int32 | int64
+}
+
+type StringableSignedInteger interface {
+
+	~int | ~int8 | ~int16 | ~int32 | ~int64
+
+	String() string
+
+}
+
+type CombineEmbeds interface {
+	fmt.Stringer
+	comparable | io.Reader
+
+	Foo()
+}
+
+func Caller() {
+	Foo[int,int](1,2)
+}
+
+func Issue235[K interface {
+	comparable
+	constraints.Ordered
+}, V any](m map[K]V) []K {
+	keys := maps.Keys(m)
+	slices.Sort(keys)
+	return keys
+}
+
+func multilineParams[V any](p1 V,
+	p2 V) {
+
+	println("body")
+
+}
+-- foo.go.golden --
+package p
+
+func Foo[A, B any](x A, y B) {}
+
+type Vector[T any] []T
+
+var v Vector[int]
+
+type PredeclaredSignedInteger interface {
+	int | int8 | int16 | int32 | int64
+}
+
+type StringableSignedInteger interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64
+
+	String() string
+}
+
+type CombineEmbeds interface {
+	fmt.Stringer
+	comparable | io.Reader
+
+	Foo()
+}
+
+func Caller() {
+	Foo[int, int](1, 2)
+}
+
+func Issue235[K interface {
+	comparable
+	constraints.Ordered
+}, V any](m map[K]V) []K {
+	keys := maps.Keys(m)
+	slices.Sort(keys)
+	return keys
+}
+
+func multilineParams[V any](p1 V,
+	p2 V,
+) {
+	println("body")
+}
