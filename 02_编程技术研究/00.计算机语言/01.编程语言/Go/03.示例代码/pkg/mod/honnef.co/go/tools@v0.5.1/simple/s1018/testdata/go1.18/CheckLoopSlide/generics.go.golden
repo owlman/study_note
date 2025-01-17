@@ -1,9 +1,0 @@
-package pkg
-
-func tpfn[T []int]() {
-	var n int
-	var bs T
-	var offset int
-
-	copy(bs[:n], bs[offset:])
-}
